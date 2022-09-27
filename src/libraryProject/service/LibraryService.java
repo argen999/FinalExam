@@ -6,17 +6,17 @@ import libraryProject.model.LibraryMember;
 import java.util.List;
 
 public interface LibraryService {
-    List<LibraryMember> getLibraryMembers();
-    void addLibraryMember(LibraryMember member);
+    void getLibraryMembers();
+    void addLibraryMember(LibraryMember libraryMember);
 
-    LibraryMember findLibraryMemberById(Long id);
+    void findLibraryMemberById();
     void deleteLibraryMemberByID(Long id);
 
     void addBookToLibrary(Book book);
 
-    List<Book> getLibraryBooks();
+    void getLibraryBooks();
 
-    Book findLibraryBookById(Long id);
+    void findLibraryBookById();
 
     void deleteLibraryBookByID(Long id);
 

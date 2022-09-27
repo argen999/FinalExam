@@ -1,10 +1,17 @@
 package libraryProject;
 
 import libraryProject.dao.Dao;
+import libraryProject.model.Book;
 import libraryProject.model.Library;
+import libraryProject.model.LibraryMember;
 import libraryProject.service.impl.LibraryServiceImpl;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.spi.AbstractResourceBundleProvider;
 
 public class Main {
     static Scanner scannerN = new Scanner(System.in);
@@ -14,6 +21,48 @@ public class Main {
         LibraryServiceImpl libraryService = new LibraryServiceImpl(dao);
         while(true){
             buttons();
+            System.out.print("\nВыберите функцию: ");
+            String button = scannerS.nextLine();
+            switch (button) {
+                case "1" -> {
+                    LibraryMember libraryMember = new LibraryMember();
+                    System.out.print("Введите ID участника: ");
+                    libraryMember.setMemberId(scannerN.nextLong() );
+                    scannerN.nextLine();
+                    System.out.print("Введите имя участника: ");
+                    libraryMember.setName(scannerN.nextLine() );
+                    libraryService.addLibraryMember(libraryMember);
+                }
+                case "2" -> libraryService.getLibraryMembers();
+                case "3" -> libraryService.findLibraryMemberById();
+                case "4" -> {
+                    System.out.print("Введите ID: ");
+                    long membersID = scannerN.nextLong();
+                    libraryService.deleteLibraryMemberByID(membersID);
+                }
+                case "5" -> {
+                    Book book = new Book();
+                    System.out.print("Введите ID книги: ");
+                    book.setBookId(scannerN.nextLong() );
+                    scannerN.nextLine();
+                    System.out.print("Введите тайтл книги: ");
+                    book.setTitle(scannerN.nextLine() );
+                    libraryService.addBookToLibrary(book);
+                }
+                case "6" -> libraryService.getLibraryBooks();
+                case "7" -> libraryService.findLibraryBookById();
+                case "8" -> {
+                    System.out.print("Введите ID книги чтобы удалить: ");
+                    long bookID = scannerN.nextLong();
+                    libraryService.deleteLibraryBookByID(bookID);
+                }
+                case "9" -> libraryService.addBookToMember();
+                case "10" -> libraryService.removeBookFromReading();
+                default -> System.out.println("Андай метод жок!");
+            }
+            if (button.equals("x") ) {
+                break;
+            }
         }
     }
 
